@@ -108,13 +108,18 @@ void Suzaku::step(double dt)
 			int move_backward = 1; //move_backward = true by default
 			if (back_edge == true)
 				move_backward = 0;
-			turn(512,move_backward);
-			DelayMS(500);
+			turn(200,move_backward);
+			DelayMS(100);
 			int turn_dir = 3;//move left by default		
 			if(left_edge == true)
 				turn_dir= 2;
-			turn(512,turn_dir);
-			DelayMS(300);
+			turn(200,turn_dir);
+			DelayMS(100);
+		}
+		else
+		{
+			turn(200,0);
+			DelayMS(100);
 		}
 	}
 	time +=dt;
