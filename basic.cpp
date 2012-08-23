@@ -12,7 +12,8 @@ void init(){
     MFDigiInit(100);
 }
 void quit(){
-    Servo::action();
+    //Servo::action();
+	;
 }
 void print(const char* s){
     MF2X4LCD(s, strlen(s));

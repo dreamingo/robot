@@ -11,26 +11,28 @@
 // #include "test.h"
 #include "mission.h"
 #include "suzaku.h"
+#include "test_brake.h"
+#include "flag.h"
 
 //static Config & C = Config::getInstance();
-//const int IO_PATTERN = 0xf00;
+const int IO_PATTERN = 0x000;
 
 int main(){
 	init();
-	//MFSetPortDirect(IO_PATTERN);
+	Flag::init();
+	printf("ggfuckdsd2r21\n");
+	MFSetPortDirect(IO_PATTERN);
 	DelayMS(100);
-	MissionManager msm("main_manager");
-	msm.init();
+	//MissionManager msm("main_manager");
+	//msm.init();
 	Suzaku suzaku;
-	// put missions into missionMagnager
-	msm.add(&suzaku);
-	// start mainloop
-	while(not msm.isEnd()){
-		// step all missions
-		msm.step(0.1);
+	while(1)
+	{
+		if(MFGetDigiInput(3) == 0)
+			break;
 		DelayMS(50);
 	}
-
+	suzaku.brain();
 	print("quit\n");
 	quit();
 	DelayMS(3000);

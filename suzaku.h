@@ -3,70 +3,31 @@
 #include <string>
 #include "servo.h"
 #include "basic.h"
+#include "wheels.h"
 #include "mission.h"
+#include "eyes.h"
 
-
-//servos,I/Os class
-class Wheels {
-	private:
-		int direct;//direct: 0->ahead,1->back,2->right,3->left
-		int di_speed[4][2];
-		int speed;
-		Servo servo;
-		int servo_num;
-	public:
-		Wheels();
-		void stop();
-		void setServoNum(int n);
-		void setDirect(int dir);
-		void setSpeed(int sp);
-		void setMode(int mode);
-		void action();
-		void init();
-};
-
-class Eyes{
-	private:
-		//Obsticle detection
-		bool IsObs;
-		//edge detection
-		bool IsEdge;
-	public:
-		void init()
-		{
-			IsEdge = false;
-			IsObs = false;
-		}
-		//Obsticle detection
-		bool Get_Obs_information(bool information[]);
-		//edge detection
-		bool Get_Edge_information(bool information[]);
-};
-
-class Suzaku: public Mission{
+class Suzaku {
     private:
 		Wheels wheels;
 		Eyes my_eyes;
+		int count;
+		int delay_speed;
 		bool obs_information[4];
 		bool edge_information[8];
-        bool normal;
- 		double time;
-		bool end;
+        int turn_dir;
     public:
-        void init(){
-			time = 0;
-			wheels.setServoNum(2);
-			wheels.init();
-			end=false;
-		}
-		void turn(int speed,int dir){
-			wheels.setSpeed(speed);
-			wheels.setDirect(dir);
-			wheels.action();
-		}
-        void step(double dt);
+		Suzaku();
+        void brain();
         void stop();
-        bool isEnd(){
-                return end;
-		}
+		void delay_until(int time, int condition);
+		//turn: set speed and dir,
+		//dir  = 0, go ahead
+		//dir  = 1, go backward
+		//dir  = 2, turn right
+		//dir  = 3, turn left
+		void turn(int speed, int dir);
+
+		bool fragment_delay(int delay_time, int divise_num, int dir);
+		void Edge_dection();
 };
