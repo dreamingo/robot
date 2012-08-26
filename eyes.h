@@ -13,12 +13,7 @@ class Eyes{
 		static const int UPFR = 6;
 		static const int UPBL = 7;
 		static const int UPBR = 8;
-		void init()
-		{
-			IsEdge = false;
-			IsObs = false;
-		}
-		//Obsticle detection
+			//Obsticle detection
 		bool Get_Obs_information(bool information[]);
 		//edge detection
 		bool Get_Edge_information(bool information[]);

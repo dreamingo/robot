@@ -2,17 +2,21 @@
 
 //This function return a binary number, eg: 000 means there is nothing;
 //111means there is Obstacle in the front,left,right side; so as it
-bool Eyes::Get_Obs_information(bool information[]){
-	information=0;
-	bool frontObs = (MFGetDigiInput(2) ==0);
-	bool leftObs = (MFGetDigiInput(4) ==0);
-	bool rightObs = (MFGetDigiInput(3) ==0); //information = (rightObs<<2)+(leftObs<<1) + frontObs;
-	if(information != 0)
+bool Eyes::Get_Obs_information(bool information[])
+{
+	for(int i = 0; i < 6; i++)
+		information[i] = false;
+	//if(MFGetDigiInput(FRONT) == 0)
+	bool is_obs = false;
+	for(int i = 0; i <6; i++)
 	{
-		IsObs = true;
+		if(MFGetDigiInput(i) == 0)
+		{
+			information[i] = true;
+			is_obs = true;
+		}
 	}
-	printf("Information:%d ", information);
-	return IsObs;
+	return is_obs;
 }
 bool Eyes::Get_Edge_information(bool information[])
 {
